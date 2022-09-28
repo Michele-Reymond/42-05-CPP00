@@ -4,19 +4,24 @@
 class Contact {
 
 public:
-
-    char *firstname;
-    char *lastname;
-    char *nickname;
-    char *phonenbr;
-    char *secret;
-
     Contact(void);
     ~Contact(void);
 
-    void get_infos(void);
-    void search(void);
+    void add_contact(void);
+    std::string getFirstname(void);
+    std::string getLastname(void);
+    std::string getNickname(void);
+    std::string getPhonenbr(void);
+    std::string getSecret(void);
 
+
+private:
+    std::string _ask(std::string question);
+    std::string _firstname;
+    std::string _lastname;
+    std::string _nickname;
+    std::string _phonenbr;
+    std::string _secret;
 };
 
 #endif

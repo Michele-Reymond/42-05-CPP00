@@ -1,5 +1,6 @@
 #include <iostream>
 #include "PhoneBook.hpp"
+#include "Contact.hpp"
 
 std::string	uppercase(std::string str)
 {
@@ -18,11 +19,11 @@ std::string get_input()
 {
     std::string input;
 
-    std::cout << "What do you want to do? Add, Search or exit?" << std::endl;
+    std::cout << "What do you want to do? ADD, SEARCH or EXIT?" << std::endl;
     std::cin >> input;
     input = uppercase(input);
-    std::cin.clear();
-	std::cin.ignore(256,'\n');
+    std::cin.clear(); //clear error flag on cin
+	std::cin.ignore(256,'\n'); //clear buffer before taking new
     return(input);
 }
 
@@ -35,13 +36,15 @@ int main() {
     while ((input = get_input()) != "EXIT")
     {
         if (input == "ADD")
-            phone.Contacts[i].get_infos();
+        {
+            phone.Contacts[i].add_contact();
+            if (++i == 8)
+			    i = 0;
+        }
         else if (input == "SEARCH")
-            phone.Contacts[i].search();
+            phone.search();
         else
-            std::cout << "Not a valid entry\n" << std::endl;
-        if (++i == 8)
-			i = 0;
+            std::cout << "Not a valid entry" << std::endl;
     }
     return (0);
 }
