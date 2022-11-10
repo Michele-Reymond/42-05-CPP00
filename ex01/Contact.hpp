@@ -7,7 +7,8 @@ public:
     Contact(void);
     ~Contact(void);
 
-    void add_contact(void);
+    void        add_contact(void);
+    int         is_not_ok(void);
     std::string getFirstname(void);
     std::string getLastname(void);
     std::string getNickname(void);

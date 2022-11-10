@@ -12,6 +12,30 @@ PhoneBook::~PhoneBook(void) {
     return;
 }
 
+std::string PhoneBook::_get_input()
+{
+    std::string input;
+
+    std::cout << "What do you want to do? ADD, SEARCH or EXIT?" << std::endl << ">>";
+    std::getline(std::cin, input);
+    input = _uppercase(input);
+    return(input);
+}
+
+std::string	PhoneBook::_uppercase(std::string str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+    {
+		str[i] = toupper(str[i]);
+        i++;
+    }
+	return (str);
+}
+
+
 void PhoneBook::_print_column(std::string str) {
     unsigned int    len;
     int             i;
@@ -91,15 +115,54 @@ void PhoneBook::_display_the_one(int index) {
     return;
 }
 
-void PhoneBook::search(void) {
-    int input;
+
+int PhoneBook::_search(void) {
+    std::string input;
+    int index;
 
     if (_display_contacts())
     {
         std::cout << "Please enter the index of the chosen one" << std::endl << ">>";
-        std::cin >> input;
-        std::cin.clear();
-        std::cin.ignore(256, '\n');
-        _display_the_one(input);
+        std::getline(std::cin, input);
+        if (std::cin.fail())
+            return (1);
+        index = strtol(input.c_str(), NULL, 10);
+        if (!input.empty())
+            _display_the_one(index);
+        else
+        {
+            std::cout << "Oops you did't enter something!!" << std::endl << std::endl;
+            if (_search())
+                return (1);
+        }
+    }
+    return (0);
+}
+
+void PhoneBook::loop(void) {
+    std::string input;
+    int         i;
+
+    i = 0;
+    while ((input = _get_input()) != "EXIT")
+    {
+        if (std::cin.fail())
+            break;
+        std::cin.clear(); //clear error flag on cin
+        if (input == "ADD")
+        {
+            this->Contacts[i].add_contact();
+            if (this->Contacts[i].is_not_ok())
+                break;
+            if (++i == 8)
+			    i = 0;
+        }
+        else if (input == "SEARCH")
+        {
+            if (this->_search())
+                break;
+        }
+        else
+            std::cout << "Not a valid entry" << std::endl;
     }
 }
