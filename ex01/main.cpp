@@ -20,10 +20,9 @@ std::string get_input()
     std::string input;
 
     std::cout << "What do you want to do? ADD, SEARCH or EXIT?" << std::endl;
-    std::cin >> input;
+    std::getline(std::cin, input);
     input = uppercase(input);
     std::cin.clear(); //clear error flag on cin
-	std::cin.ignore(256,'\n'); //clear buffer before taking new
     return(input);
 }
 
