@@ -34,6 +34,8 @@ int main() {
     i = 0;
     while ((input = get_input()) != "EXIT")
     {
+        if (input.empty())
+            break;
         if (input == "ADD")
         {
             phone.Contacts[i].add_contact();
